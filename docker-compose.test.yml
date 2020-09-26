@@ -1,0 +1,46 @@
+version: "3"
+services:
+  postgresql-test:
+    image: postgres:12.4
+    container_name: postgres-test
+    environment:
+      - POSTGRES_DB=distributed_workers
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - TZ=GMT
+    volumes:
+      - postgresql_test_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  distributed-workers-test:
+    container_name: distributed-workers-test
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+      - TYPEORM_HOST=postgresql-test
+      - TYPEORM_CONNECTION=postgres
+      - TYPEORM_USERNAME=postgres
+      - TYPEORM_PASSWORD=1234
+      - TYPEORM_DATABASE=distributed_workers
+      - TYPEORM_PORT=5432
+      - TYPEORM_SYNCHRONIZE=false
+      - TYPEORM_LOGGING=true
+      - TYPEORM_ENTITIES=./**/model.js
+      - TYPEORM_LOGGING='["error"]'
+    command: npm test
+    depends_on:
+        - postgresql-test
+
+
+volumes:
+  postgresql_test_data:
+    driver: local

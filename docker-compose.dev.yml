@@ -1,0 +1,47 @@
+version: "3"
+services:
+  postgresql-dev:
+    image: postgres:12.4
+    container_name: postgresql-dev
+    environment:
+      - POSTGRES_DB=distributed_workers
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - TZ=GMT
+    volumes:
+      - postgresql_data_dev:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  distributed-workers:
+    build:
+        context: ./
+        dockerfile: ./Dockerfile
+    environment:
+      - TYPEORM_HOST=postgresql-dev
+      - TYPEORM_CONNECTION=postgres
+      - TYPEORM_USERNAME=postgres
+      - TYPEORM_PASSWORD=1234
+      - TYPEORM_DATABASE=distributed_workers
+      - TYPEORM_PORT=5432
+      - TYPEORM_SYNCHRONIZE=false
+      - TYPEORM_LOGGING=true
+      - TYPEORM_ENTITIES=./**/model.js
+      - TYPEORM_LOGGING='["error"]'
+    volumes:
+      - ./src:/opt/app/src
+    command: npm run dev
+    depends_on:
+        - postgresql-dev
+
+
+volumes:
+  postgresql_data_dev:
+    driver: local

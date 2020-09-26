@@ -1,0 +1,10 @@
+insert into workers.job (url, status, updated_at) VALUES ('https://nodejs.org', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.twilio.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google.com', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('http://scratchpads.eu', 'NEW', now());
+insert into workers.job (url, status, updated_at) VALUES ('https://www.google2324.com', 'NEW', now());

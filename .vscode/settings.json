@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "distributed_workers",
+      "driver": "PostgreSQL",
+      "name": "Postgres local",
+      "password": "1234",
+      "port": 5432,
+      "previewLimit": 50,
+      "server": "localhost",
+      "username": "postgres"
+    }
+  ]
+}
