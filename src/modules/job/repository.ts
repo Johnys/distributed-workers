@@ -42,7 +42,8 @@ export default class JobRepository extends Repository<Job> {
         job.status IN ($3, $4)
         AND job.started_at > now() - interval '${windowSizeHour} hour'
        )
-       GROUP BY job.status`,
+       GROUP BY job.status
+       ORDER BY job.status`,
       [JOB_STATUS.NEW, JOB_STATUS.PROCESSING, JOB_STATUS.DONE, JOB_STATUS.ERROR],
     );
   }
