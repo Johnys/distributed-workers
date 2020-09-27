@@ -40,4 +40,23 @@ export default class JobRepository extends Repository<Job> {
       JOB_STATUS.PROCESSING,
     ]);
   }
+
+  async getJobCountByStatus(): Promise<{ status: string; count: string }[]> {
+    return this.query(
+      `SELECT job.status, count(job.id) as count
+       FROM workers.job as job
+       WHERE job.status IN ($1, $2)
+       OR (
+        job.status IN ($3, $4)
+        AND job.started_at > now() - interval '1 hour'
+       )
+       GROUP BY job.status`,
+      [
+        JOB_STATUS.NEW,
+        JOB_STATUS.PROCESSING,
+        JOB_STATUS.DONE,
+        JOB_STATUS.ERROR,
+      ],
+    );
+  }
 }

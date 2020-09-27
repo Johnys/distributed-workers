@@ -1,4 +1,4 @@
 import Job, { JOB_STATUS } from './model';
-import { Orchestrator } from './service';
+import Service, { Orchestrator } from './service';
 
-export { Job, JOB_STATUS, Orchestrator };
+export { Job, JOB_STATUS, Orchestrator, Service };

@@ -35,7 +35,7 @@ services:
       - TYPEORM_LOGGING=true
       - TYPEORM_ENTITIES=./**/model.js
       - TYPEORM_LOGGING='["error"]'
-    command: npm start
+    command: node dist
     depends_on:
         - postgresql
 
