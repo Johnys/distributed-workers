@@ -4,6 +4,7 @@ import {
   Column,
   BaseEntity,
   UpdateDateColumn,
+  CreateDateColumn,
   Index,
 } from 'typeorm';
 
@@ -12,6 +13,10 @@ export enum JOB_STATUS {
   PROCESSING = 'PROCESSING',
   DONE = 'DONE',
   ERROR = 'ERROR',
+}
+
+export enum JOB_TYPE {
+  CHECK_URL = 'CHECK_URL',
 }
 
 @Entity({
@@ -39,11 +44,25 @@ export default class Job extends BaseEntity {
   status: JOB_STATUS;
 
   @Column({
+    type: 'enum',
+    enum: JOB_TYPE,
+    nullable: false,
+  })
+  type: JOB_TYPE;
+
+  @Column({
     name: 'http_code',
     type: 'int',
     nullable: true,
   })
   httpCode: number;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    name: 'created_at',
+    nullable: false,
+  })
+  createdAt: Date;
 
   @Column({
     type: 'timestamp',

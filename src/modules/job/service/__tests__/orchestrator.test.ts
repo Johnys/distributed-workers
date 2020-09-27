@@ -1,7 +1,7 @@
 import http from 'http';
 import { getCustomRepository } from 'typeorm';
 import Orchestrator from '../orchestrator';
-import Job, { JOB_STATUS } from '../../model';
+import Job, { JOB_STATUS, JOB_TYPE } from '../../model';
 import ConnectionManager from '../../../../connection_manager';
 import JobRepository from '../../repository';
 
@@ -29,6 +29,7 @@ describe('Orchestrator', () => {
     const job = new Job();
     job.url = 'http://www.test.com';
     job.status = JOB_STATUS.NEW;
+    job.type = JOB_TYPE.CHECK_URL;
     const savedJob = await jobRepository.save(job);
 
     const httpGetMock = jest.spyOn(http, 'get');
@@ -49,6 +50,7 @@ describe('Orchestrator', () => {
     const job = new Job();
     job.url = 'http://www.test.com';
     job.status = JOB_STATUS.NEW;
+    job.type = JOB_TYPE.CHECK_URL;
     const savedJob = await jobRepository.save(job);
 
     const httpGetMock = jest.spyOn(http, 'get');

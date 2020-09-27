@@ -1,3 +1,3 @@
-import CheckUrlExecutor from './check_url_executor';
+import ExecutorFactory from './executor_factory';
 
-export { CheckUrlExecutor };
+export { ExecutorFactory };
