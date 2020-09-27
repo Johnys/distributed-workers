@@ -85,4 +85,24 @@ describe.only('JobRepository', () => {
 
     expect(savedJob.id).toBe(nextJob?.id);
   });
+
+  it('should return job count', async () => {
+    const job = new Job();
+    job.url = 'http://www.test.com';
+    job.status = JOB_STATUS.NEW;
+    job.type = JOB_TYPE.CHECK_URL;
+    await jobRepository.save(job);
+
+    const job2 = new Job();
+    job2.url = 'http://www.test.com';
+    job2.status = JOB_STATUS.PROCESSING;
+    job2.type = JOB_TYPE.CHECK_URL;
+    await jobRepository.save(job2);
+
+    const jobStatusCount = await jobRepository.getJobCountByStatus(5);
+    expect(jobStatusCount).toStrictEqual([
+      { status: JOB_STATUS.NEW, count: '1' },
+      { status: JOB_STATUS.PROCESSING, count: '1' },
+    ]);
+  });
 });
