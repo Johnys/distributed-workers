@@ -38,3 +38,5 @@ For execute local without docker, you need running locally a postgres server and
 npm install
 npm start
 ```
+The project will show a chart bar with elements in the queue.
+https://user-images.githubusercontent.com/3290510/94356764-6968b280-0068-11eb-9a40-4c61de6bd108.png
