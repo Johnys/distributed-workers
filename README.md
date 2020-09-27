@@ -32,7 +32,7 @@ Here we are using nodemon to reload automatically the dev environment, so if you
 
 ### How execute dev environment without docker
 For execute local without docker, you need running locally a postgres server and a nodejs 13.14.0
-1. Create file .env with connection settings (See .env.example)
+1. Create .env file with connection settings (See .env.example)
 2. Execute those commands:
 ```
 npm install
