@@ -4,6 +4,7 @@ import { JOB_STATUS, Service as JobService } from './modules/job';
 const BAR_FORMAT = '[{bar}] | {STATUS} | {value}/{total}';
 
 const REFRESH_INTERVAL = 1000;
+const WINDOW_SIZE = 1;
 
 export default class Monitor {
   private multibar: CliProgress.MultiBar;
@@ -34,10 +35,7 @@ export default class Monitor {
 
   async start(): Promise<void> {
     const jobCountByStatus = await this.getJobCountByStatus();
-    const totalCount = jobCountByStatus.reduce(
-      (acc, jobCount) => acc + jobCount.count,
-      0,
-    );
+    const totalCount = jobCountByStatus.reduce((acc, jobCount) => acc + jobCount.count, 0);
     jobCountByStatus.forEach(jobCount => {
       const bar = this.bars.get(jobCount.status);
       bar?.setTotal(totalCount);
@@ -48,10 +46,8 @@ export default class Monitor {
     setTimeout(this.start.bind(this), REFRESH_INTERVAL);
   }
 
-  private async getJobCountByStatus(): Promise<
-    { status: string; count: number }[]
-  > {
-    const jobCountByStatus = await this.jobService.getJobCountByStatus();
+  private async getJobCountByStatus(): Promise<{ status: string; count: number }[]> {
+    const jobCountByStatus = await this.jobService.getJobCountByStatus(WINDOW_SIZE);
     const parsedJobCount = jobCountByStatus.map(item => ({
       status: item.status,
       count: parseInt(item.count, 10),

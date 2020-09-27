@@ -5,6 +5,7 @@ import JobRepository from '../repository';
 
 describe.only('JobRepository', () => {
   let jobRepository: JobRepository;
+
   beforeAll(async () => {
     await ConnectionManager.init();
     jobRepository = getCustomRepository(JobRepository);

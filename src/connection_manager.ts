@@ -6,9 +6,7 @@ export default class ConnectionManager {
   static async init(): Promise<void> {
     if (!ConnectionManager.connection) {
       ConnectionManager.connection = await createConnection();
-      await ConnectionManager.connection.query(
-        'CREATE SCHEMA IF NOT EXISTS workers',
-      );
+      await ConnectionManager.connection.query('CREATE SCHEMA IF NOT EXISTS workers');
       await ConnectionManager.connection.synchronize();
     }
   }
