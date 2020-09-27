@@ -28,7 +28,7 @@ In the root directory execute:
 docker-compose -f docker-compose.dev.yml up --build
 ```
 This compose create a postgres database exposed on port 5432 with user postgres and password 1234.
-Here we are using nodemon to reload automatically the dev environment, so if you change a file inside src folder, the project will be reloaded.
+Here we are using nodemon to reload automatically the dev environment, so if you change any file inside src folder, the project will be reloaded.
 
 ### How execute dev environment without docker
 For execute local without docker, you need running locally a postgres server and a nodejs 13.14.0
