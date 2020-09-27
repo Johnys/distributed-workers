@@ -34,7 +34,7 @@ export default class Orchestrator {
   async process(job: Job): Promise<void> {
     const executor = ExecutorFactory.getExecutor(job);
     if (!executor) {
-      job.status = JOB_STATUS.DONE;
+      job.status = JOB_STATUS.ERROR;
       job.errorMessage = 'There is no executor for this job type';
     } else {
       const jobStatus = await executor.execute(job);
